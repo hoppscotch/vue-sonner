@@ -109,47 +109,50 @@
           </div>
         </template>
       </div>
-      <template v-if="toast.cancel">
-        <button
-          :class="cn(classes?.cancelButton, toast.classes?.cancelButton)"
-          data-button
-          data-cancel
-          @click="
-            () => {
-              deleteToast()
-              if (toast.cancel?.onClick) {
-                toast.cancel.onClick()
-              }
-            }
-          "
-        >
-          {{ toast.cancel.label }}
-        </button>
-      </template>
 
-      <template v-if="toast.action">
-        <template
-          v-for="(action, index) in Array.isArray(toast.action)
-            ? toast.action
-            : [toast.action]"
-          :key="index"
-        >
+      <div data-buttons="">
+        <template v-if="toast.cancel">
           <button
-            :class="cn(classes?.actionButton, action?.classes)"
+            :class="cn(classes?.cancelButton, toast.classes?.cancelButton)"
             data-button
+            data-cancel
             @click="
-              (event) => {
-                action.onClick(event, {
-                  deleteToast
-                })
-                if (event.defaultPrevented) return
+              () => {
+                deleteToast()
+                if (toast.cancel?.onClick) {
+                  toast.cancel.onClick()
+                }
               }
             "
           >
-            {{ action.label }}
+            {{ toast.cancel.label }}
           </button>
         </template>
-      </template>
+
+        <template v-if="toast.action">
+          <template
+            v-for="(action, index) in Array.isArray(toast.action)
+              ? toast.action
+              : [toast.action]"
+            :key="index"
+          >
+            <button
+              :class="cn(classes?.actionButton, action?.classes)"
+              data-button
+              @click="
+                (event) => {
+                  action.onClick(event, {
+                    deleteToast
+                  })
+                  if (event.defaultPrevented) return
+                }
+              "
+            >
+              {{ action.label }}
+            </button>
+          </template>
+        </template>
+      </div>
     </template>
   </li>
 </template>
