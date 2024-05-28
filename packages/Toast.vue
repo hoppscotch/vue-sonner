@@ -279,8 +279,10 @@ onMounted(() => {
   emit('update:heights', newHeightArr as HeightT[])
 })
 
+let timeoutId: ReturnType<typeof setTimeout>
+
 const deleteToast = (delay = 0) => {
-  setTimeout(() => {
+  timeoutId = setTimeout(() => {
     // Save the offset for the exit swipe animation
     removed.value = true
     offsetBeforeRemove.value = offset.value
@@ -293,6 +295,8 @@ const deleteToast = (delay = 0) => {
       emit('removeToast', props.toast)
     }, TIME_BEFORE_UNMOUNT)
   }, delay)
+
+  return timeoutId
 }
 
 const handleCloseToast = () => {
@@ -438,5 +442,6 @@ onUnmounted(() => {
     )
     emit('update:heights', newHeights)
   }
+  clearTimeout(timeoutId)
 })
 </script>
