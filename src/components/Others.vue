@@ -63,7 +63,15 @@ const allTypes = [
 <Toaster richColors  />
 `,
     action: () => {
-      toast.success('Event has been created')
+      toast.success('Event has been created', {
+        duration: Infinity,
+        action: {
+          label: 'Undo',
+          onClick: (e, toast) => {
+            toast.deleteToast()
+          }
+        }
+      })
       emit('setRichColors', true)
     }
   },
