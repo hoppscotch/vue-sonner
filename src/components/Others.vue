@@ -68,7 +68,7 @@ const allTypes = [
         action: {
           label: 'Undo',
           onClick: (e, toast) => {
-            toast.deleteToast()
+            toast.dismiss()
           }
         }
       })

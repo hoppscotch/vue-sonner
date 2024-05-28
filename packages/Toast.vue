@@ -143,7 +143,7 @@
                 @click="
                   (event) => {
                     action.onClick(event, {
-                      deleteToast
+                      dismiss: deleteToast
                     })
                     if (event.defaultPrevented) return
                   }

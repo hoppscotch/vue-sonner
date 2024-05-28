@@ -136,7 +136,7 @@ const allTypes = [
             label: 'Action 1',
             onClick: (e, toast) => {
               alert('Do action 1')
-              toast.deleteToast(200)
+              toast.dismiss(200)
             }
           },
           {

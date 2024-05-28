@@ -53,7 +53,7 @@ export type ToastAction = {
   onClick: (
     event: MouseEvent,
     toast: {
-      deleteToast: (delay?: number) => void
+      dismiss: (delay?: number) => void
     }
   ) => void
   classes?: string
