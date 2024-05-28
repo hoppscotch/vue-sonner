@@ -120,12 +120,12 @@ const allTypes = [
     snippet: `toast('Event has been created', {
   action: [
     {
-      label: 'Undo',
-      onClick: () => console.log('Undo')
+      label: 'Action 1',
+      onClick: () => alert('Do action 1')
     },
     {
-      label: 'Redo',
-      onClick: () => console.log('Redo')
+      label: 'Action 2',
+      onClick: () => alert('Do action 2')
     }
   ],
 })`,
@@ -133,12 +133,17 @@ const allTypes = [
       toast.message('Event has been created', {
         action: [
           {
-            label: 'Cancel',
-            onClick: (e, toast) => toast.deleteToast(200)
+            label: 'Action 1',
+            onClick: (e, toast) => {
+              alert('Do action 1')
+              toast.deleteToast(200)
+            }
           },
           {
-            label: 'Confirm',
-            onClick: () => console.log('Confirm')
+            label: 'Action 2',
+            onClick: () => {
+              alert('Do action 2')
+            }
           }
         ],
         duration: 10000000

@@ -166,8 +166,15 @@ toast.warning(markRaw(HeadlessToastWithProps), {
   },
   {
     name: 'Custom',
-    snippet: `
-`,
+    snippet: `import { markRaw } from 'vue'
+
+import CustomComponent from './CustomComponent.vue'
+
+toast.warning(markRaw(CustomComponent), {
+  componentProps: {
+    message: 'Prop message'
+  }
+});`,
     action: () => {
       toast.custom(markRaw(New), {
         duration: Infinity,
@@ -177,8 +184,21 @@ toast.warning(markRaw(HeadlessToastWithProps), {
   },
   {
     name: 'Cancel and Action',
-    snippet: `
-`,
+    snippet: `      toast('Cancel and Action', {
+        duration: Infinity,
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {
+            toast.dismiss()
+          }
+        },
+        action: {
+          label: 'Confirm',
+          onClick: () => {
+            toast.dismiss()
+          }
+        }
+      })`,
     action: () => {
       toast('Cancel and Action', {
         duration: Infinity,
