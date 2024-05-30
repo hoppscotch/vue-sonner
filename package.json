@@ -1,8 +1,8 @@
 {
-  "name": "vue-sonner",
+  "name": "@hoppscotch/vue-sonner",
   "version": "1.1.2",
   "type": "module",
-  "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
+  "author": "Hoppscotch Team <support@hoppscotch.io>",
   "scripts": {
     "dev": "vite",
     "build:docs": "vite build --mode docs",
@@ -13,9 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaoluoboding/vue-sonner.git"
+    "url": "git+https://github.com/hoppscotch/vue-sonner.git"
   },
-  "homepage": "https://github.com/xiaoluoboding/vue-sonner",
+  "homepage": "https://github.com/hoppscotch/vue-sonner",
   "files": [
     "lib",
     "volar.d.ts"
