@@ -116,6 +116,40 @@ const allTypes = [
       })
   },
   {
+    name: 'Multi Action',
+    snippet: `toast('Event has been created', {
+  action: [
+    {
+      label: 'Action 1',
+      onClick: () => alert('Do action 1')
+    },
+    {
+      label: 'Action 2',
+      onClick: () => alert('Do action 2')
+    }
+  ],
+})`,
+    action: () =>
+      toast.message('Event has been created', {
+        action: [
+          {
+            label: 'Action 1',
+            onClick: (e, toast) => {
+              alert('Do action 1')
+              toast.dismiss(200)
+            }
+          },
+          {
+            label: 'Action 2',
+            onClick: () => {
+              alert('Do action 2')
+            }
+          }
+        ],
+        duration: 10000000
+      })
+  },
+  {
     name: 'Promise',
     snippet: `const promise = () => new Promise((resolve) => setTimeout(resolve, 2000));
 

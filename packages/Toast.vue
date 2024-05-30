@@ -109,37 +109,51 @@
           </div>
         </template>
       </div>
-      <template v-if="toast.cancel">
-        <button
-          :class="cn(classes?.cancelButton, toast.classes?.cancelButton)"
-          data-button
-          data-cancel
-          @click="
-            () => {
-              deleteToast()
-              if (toast.cancel?.onClick) {
-                toast.cancel.onClick()
-              }
-            }
-          "
-        >
-          {{ toast.cancel.label }}
-        </button>
-      </template>
-      <template v-if="toast.action">
-        <button
-          :class="cn(classes?.actionButton, toast.classes?.actionButton)"
-          data-button
-          @click="
-            (event) => {
-              toast.action?.onClick(event)
-              if (event.defaultPrevented) return
-              deleteToast()
-            }
-          "
-        >
-          {{ toast.action.label }}
-        </button>
+
+      <template v-if="toast.cancel || toast.action">
+        <div data-buttons="">
+          <template v-if="toast.cancel">
+            <button
+              :class="cn(classes?.cancelButton, toast.classes?.cancelButton)"
+              data-button
+              data-cancel
+              @click="
+                () => {
+                  deleteToast()
+                  if (toast.cancel?.onClick) {
+                    toast.cancel.onClick()
+                  }
+                }
+              "
+            >
+              {{ toast.cancel.label }}
+            </button>
+          </template>
+
+          <template v-if="toast.action">
+            <template
+              v-for="(action, index) in Array.isArray(toast.action)
+                ? toast.action
+                : [toast.action]"
+              :key="index"
+            >
+              <button
+                :class="cn(classes?.actionButton, action?.classes)"
+                data-button
+                @click="
+                  (event) => {
+                    action.onClick(event, {
+                      dismiss: deleteToast
+                    })
+                    if (event.defaultPrevented) return
+                  }
+                "
+              >
+                {{ action.label }}
+              </button>
+            </template>
+          </template>
+        </div>
       </template>
     </template>
   </li>
@@ -265,18 +279,24 @@ onMounted(() => {
   emit('update:heights', newHeightArr as HeightT[])
 })
 
-const deleteToast = () => {
-  // Save the offset for the exit swipe animation
-  removed.value = true
-  offsetBeforeRemove.value = offset.value
-  const newHeights = props.heights.filter(
-    (height) => height.toastId !== props.toast.id
-  )
-  emit('update:heights', newHeights)
+let timeoutId: ReturnType<typeof setTimeout>
 
-  setTimeout(() => {
-    emit('removeToast', props.toast)
-  }, TIME_BEFORE_UNMOUNT)
+const deleteToast = (delay = 0) => {
+  timeoutId = setTimeout(() => {
+    // Save the offset for the exit swipe animation
+    removed.value = true
+    offsetBeforeRemove.value = offset.value
+    const newHeights = props.heights.filter(
+      (height) => height.toastId !== props.toast.id
+    )
+    emit('update:heights', newHeights)
+
+    setTimeout(() => {
+      emit('removeToast', props.toast)
+    }, TIME_BEFORE_UNMOUNT)
+  }, delay)
+
+  return timeoutId
 }
 
 const handleCloseToast = () => {
@@ -422,5 +442,6 @@ onUnmounted(() => {
     )
     emit('update:heights', newHeights)
   }
+  clearTimeout(timeoutId)
 })
 </script>

@@ -49,6 +49,7 @@ import HeadlessToastWithProps from './HeadlessToastWithProps.vue'
 import { useCopyCode } from '~/composables/useCopyCode'
 import CopyIcon from '~/components/icons/CopyIcon.vue'
 import CheckIcon from '~/components/icons/CheckIcon.vue'
+import New from '~/components/examples/New.vue'
 
 const emit = defineEmits(['setRichColors', 'setCloseButton'])
 
@@ -62,7 +63,15 @@ const allTypes = [
 <Toaster richColors  />
 `,
     action: () => {
-      toast.success('Event has been created')
+      toast.success('Event has been created', {
+        duration: Infinity,
+        action: {
+          label: 'Undo',
+          onClick: (e, toast) => {
+            toast.dismiss()
+          }
+        }
+      })
       emit('setRichColors', true)
     }
   },
@@ -151,6 +160,59 @@ toast.warning(markRaw(HeadlessToastWithProps), {
       toast.warning(markRaw(HeadlessToastWithProps), {
         componentProps: {
           message: 'This is <br />multiline message'
+        }
+      })
+    }
+  },
+  {
+    name: 'Custom',
+    snippet: `import { markRaw } from 'vue'
+
+import CustomComponent from './CustomComponent.vue'
+
+toast.warning(markRaw(CustomComponent), {
+  componentProps: {
+    message: 'Prop message'
+  }
+});`,
+    action: () => {
+      toast.custom(markRaw(New), {
+        duration: Infinity,
+        position: 'bottom-left'
+      })
+    }
+  },
+  {
+    name: 'Cancel and Action',
+    snippet: `      toast('Cancel and Action', {
+        duration: Infinity,
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {
+            toast.dismiss()
+          }
+        },
+        action: {
+          label: 'Confirm',
+          onClick: () => {
+            toast.dismiss()
+          }
+        }
+      })`,
+    action: () => {
+      toast('Cancel and Action', {
+        duration: Infinity,
+        cancel: {
+          label: 'Cancel',
+          onClick: () => {
+            toast.dismiss()
+          }
+        },
+        action: {
+          label: 'Confirm',
+          onClick: () => {
+            toast.dismiss()
+          }
         }
       })
     }

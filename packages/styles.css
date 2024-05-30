@@ -106,6 +106,13 @@ html[dir='rtl'],
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
+[data-sonner-toast] [data-buttons] {
+  display: flex;
+  gap: 8px;
+  margin-left: var(--toast-button-margin-start);
+  margin-right: var(--toast-button-margin-end);
+}
+
 [data-sonner-toast][data-y-position='top'] {
   top: 0;
   --y: translateY(-100%);
