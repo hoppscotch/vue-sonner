@@ -1,6 +1,6 @@
 {
   "name": "@hoppscotch/vue-sonner",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "type": "module",
   "author": "Hoppscotch Team <support@hoppscotch.io>",
   "scripts": {
@@ -44,6 +44,7 @@
     "@vueuse/core": "^10.9.0",
     "@vueuse/head": "^2.0.0",
     "clean-css": "^5.3.3",
+    "conventional-changelog-cli": "^5.0.0",
     "highlight.js": "^11.9.0",
     "typescript": "^5.3.3",
     "unocss": "^0.58.5",
